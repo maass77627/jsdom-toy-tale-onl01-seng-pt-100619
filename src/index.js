@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-      fetch('http://localhost:3004/toys')
+      fetch('http://localhost:3000/toys')
       .then(function(response){
         return response.json()
       })
@@ -33,33 +33,39 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
       function cardMaker(toys) {
-        for (const toy of toys) {
-            let div = document.createElement("div")
-            div.className = "card"
-            let h2 = document.createElement("h2")
-            h2.innerHTML = toy.name
-            let img = document.createElement("img")
-             img.className = "toy-avatar"
-             img.src = toy.image
-            let p = document.createElement("p")
-             p.innerHTML = toy.likes
-             let button = document.createElement("button")
-             button.className = "like-btn"
-             button.style.color = 'orange'
-             button.style.width = '50px'
-             button.innerText = "<3"
-             button.id = toy.id
-             button.addEventListener("click", updateLikes)
-            toydiv.appendChild(div)
-            //div.appendChild(h2, img, p, button)
-            div.appendChild(img)
-            div.appendChild(p)
-            div.appendChild(button) 
-          }
-      }
+  const toydiv = document.querySelector("#toy-collection")
+
+  for (const toy of toys) {
+
+    let div = document.createElement("div")
+    div.className = "card"
+
+    let h2 = document.createElement("h2")
+    h2.textContent = toy.name
+
+    let img = document.createElement("img")
+    img.className = "toy-avatar"
+    img.src = toy.image
+
+    let p = document.createElement("p")
+    p.textContent = toy.likes
+
+    let button = document.createElement("button")
+    button.className = "like-btn"
+    button.style.color = "orange"
+    button.style.width = "50px"
+    button.innerText = "<3"
+    button.id = toy.id
+    button.addEventListener("click", updateLikes)
+
+    div.append(h2, img, p, button)
+
+    toydiv.appendChild(div)
+  }
+}
 
       function addAToy(name, picture) {
-         fetch('http://localhost:3004/toys',{
+         fetch('http://localhost:3000/toys',{
            method: 'POST',
            headers: {
              'Content-Type': 'application/json',
@@ -92,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function patchLikes(likes, button) {
         console.log("fetching")
-        fetch(`http://localhost:3004/toys/${button}`,{
+        fetch(`http://localhost:3000/toys/${button}`,{
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -105,7 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(data => console.log(data))
         }
+
+        
       
     
     
 });
+
+
+
+
